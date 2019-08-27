@@ -113,10 +113,7 @@ public class QuickScroll extends View {
 
         listView.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if (isScrolling && (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN)) {
-                    return true;
-                }
-                return false;
+                return isScrolling && (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN);
             }
         });
 
@@ -140,7 +137,7 @@ public class QuickScroll extends View {
             container.addView(scrollIndicatorTextView);
         } else {
             scrollIndicator = createPin();
-            scrollIndicatorTextView = (TextView) scrollIndicator.findViewById(ID_PIN_TEXT);
+            scrollIndicatorTextView = scrollIndicator.findViewById(ID_PIN_TEXT);
             (scrollIndicator.findViewById(ID_PIN)).getLayoutParams().width = 25;
             container.addView(scrollIndicator);
         }
@@ -168,7 +165,7 @@ public class QuickScroll extends View {
             scrollBarParams.bottomMargin = SCROLLBAR_MARGIN;
             scrollbar.setLayoutParams(scrollBarParams);
             layout.addView(scrollbar);
-            ViewGroup.class.cast(listView.getParent()).addView(layout);
+            ((ViewGroup) listView.getParent()).addView(layout);
             // creating the handlebar
             if (this.type == TYPE_INDICATOR_WITH_HANDLE || this.type == TYPE_POPUP_WITH_HANDLE) {
                 handleBar = new View(getContext());
@@ -196,7 +193,7 @@ public class QuickScroll extends View {
 
         isInitialized = true;
 
-        ViewGroup.class.cast(listView.getParent()).addView(container);
+        ((ViewGroup) listView.getParent()).addView(container);
     }
 
     @Override
